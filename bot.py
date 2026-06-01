@@ -1,18 +1,15 @@
-import os
-
 from telegram import Update
-from telegram.ext import (
-    Application,
-    MessageHandler,
-    ContextTypes,
-    filters,
-)
+from telegram.ext import Application, MessageHandler, ContextTypes, filters
 
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = "ТВОЙ_ТОКЕН"
 
 
 async def guard(update: Update, context: ContextTypes.DEFAULT_TYPE):
-  print(update.to_dict())
+    print(update.to_dict())
+
+    await update.message.reply_text(
+        "Привет! Бот работает."
+    )
 
 
 app = Application.builder().token(TOKEN).build()
