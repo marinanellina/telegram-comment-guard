@@ -1,7 +1,9 @@
 from telegram import Update
 from telegram.ext import Application, MessageHandler, ContextTypes, filters
 
-TOKEN = "ВСТАВИМ_ПОТОМ_ТОКЕН"
+import os
+
+TOKEN = os.getenv("BOT_TOKEN")
 
 async def debug(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
