@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext import Application, MessageHandler, ContextTypes, filters
 
-TOKEN = "ТВОЙ_ТОКЕН"
+TOKEN = "8834745773:AAFYeKuFKwcvXkCbb-8Z1n4yNaYFd768C5Y"
 
 
 async def guard(update: Update, context: ContextTypes.DEFAULT_TYPE):
