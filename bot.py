@@ -22,12 +22,21 @@ async def guard(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     # Комментарий под постом канала
-    if msg.message_thread_id:
-        try:
-            await msg.delete()
-            print("Комментарий удалён")
-        except Exception as e:
-            print(e)
+   if msg.message_thread_id:
+    try:
+        print("Пытаюсь удалить")
+        print("chat_id =", msg.chat_id)
+        print("message_id =", msg.message_id)
+
+        await context.bot.delete_message(
+            chat_id=msg.chat_id,
+            message_id=msg.message_id
+        )
+
+        print("Комментарий удалён")
+
+    except Exception as e:
+        print("Ошибка:", repr(e))
 
 
 app = Application.builder().token(TOKEN).build()
