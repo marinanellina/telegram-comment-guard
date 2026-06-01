@@ -12,7 +12,7 @@ TOKEN = os.getenv("BOT_TOKEN")
 
 
 async def guard(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    print(update.to_dict())
+  print(update.to_dict())
 
 
 app = Application.builder().token(TOKEN).build()
