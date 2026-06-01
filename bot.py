@@ -17,7 +17,16 @@ async def guard(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not msg:
         return
 
-    print(update.to_dict())
+    # Сообщение не является комментарием к посту канала
+    if not msg.message_thread_id:
+        try:
+            await context.bot.delete_message(
+                chat_id=msg.chat_id,
+                message_id=msg.message_id
+            )
+            print("Удалено сообщение:", msg.text)
+        except Exception as e:
+            print("Ошибка удаления:", e)
 
 
 app = Application.builder().token(TOKEN).build()
@@ -26,4 +35,6 @@ app.add_handler(
     MessageHandler(filters.ALL, guard)
 )
 
-app.run_polling()
+print("БОТ ЗАПУЩЕН")
+
+app.run_polling(drop_pending_updates=True)
