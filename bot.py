@@ -10,19 +10,25 @@ async def guard(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not msg:
         return
 
+    print("=" * 80)
     print(msg.to_dict())
+    print("=" * 80)
 
-    # Если это комментарий к посту канала — оставляем
-    if getattr(msg, "is_automatic_forward", False):
-        print("Комментарий к посту канала")
-        return
-
-    # Удаляем обычное сообщение
     try:
+        # Комментарий под постом канала
+        if (
+            msg.reply_to_message
+            and getattr(msg.reply_to_message, "is_automatic_forward", False)
+        ):
+            print("Комментарий к посту канала — оставляем")
+            return
+
+        # Обычное сообщение в группе обсуждения
         await msg.delete()
         print("Удалено обычное сообщение")
+
     except Exception as e:
-        print("Ошибка удаления:", e)
+        print("Ошибка:", e)
 
 
 app = Application.builder().token(TOKEN).build()
@@ -30,5 +36,7 @@ app = Application.builder().token(TOKEN).build()
 app.add_handler(
     MessageHandler(filters.ALL, guard)
 )
+
+print("Бот запущен")
 
 app.run_polling(drop_pending_updates=True)
